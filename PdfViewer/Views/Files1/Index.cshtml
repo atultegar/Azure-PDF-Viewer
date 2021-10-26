@@ -1,0 +1,52 @@
+﻿@model FileClass
+@{ 
+    Layout = null;
+}
+<link href="~/css/bootstrap.css" rel="stylesheet" />
+<form asp-controller="Files1" asp-action="Index" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" />
+    <hr />
+    <button type="submit">Upload</button>
+</form>
+
+@if (Model != null)
+{
+
+    <hr />
+    <table class="table table-hover table-dark">
+        <thead>
+            <tr>
+
+                <th scope="col">Title</th>
+                <th scope="col">Folder</th>
+                <th scope="col">Path</th>
+
+                <th scope="col">Link</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(FileClass file in Model.Files)
+            {
+                if (file.ParentFolder != "")
+                {
+            <tr>
+
+                <td>@file.Title</td>
+                <td>@file.ParentFolder</td>
+                <td>@file.FolderPath</td>
+                <td>
+                    <a class="btn btn-info" href="../blobs/get?blobName=@file.Name">Open</a>
+
+                </td>
+            </tr>
+                }
+            
+            }
+
+            
+        </tbody>
+
+    </table>
+}
+
+<br /><br />
